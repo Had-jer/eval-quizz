@@ -1,77 +1,45 @@
 <?php
 $questions = [
-    [
-        'question' => 'Quel langage est utilisé pour développer WordPress ?',
-        'option1' => 'JAVA',
-        'option2' => 'PHP',
-        'option3' => 'Python',
-        'option4' => 'C#',
-        
-        'reponse' => 'PHP',
-    ],
-    [
-        'question' => 'Combien de continents sur Terre ?',
-        'option1' => '5',
-        'option2' => '6',
-        'option3' => '7',
-        'option4' => '8',
 
-        'reponse' => '7',
-    ],
-    [
-        'question' => 'Quelle est la planète la plus proche du Soleil ?',
-        'option1' => 'Vénus',
-        'option2' => 'Terre',
-        'option3' => 'Mars',
-        'option4' => 'Mercure',
+    'Quel langage est utilisé pour développer WordPress ?',
+    'Combien de continents sur Terre ?',
+     'Quelle est la planète la plus proche du Soleil ?',
+    'Quel est le plus grand océan du monde ?',
+     'Dans quel pays trouve-t-on la ville antique de Pétra, taillée dans la roche ?',
+     'Quel est le nom du peintre du tableau *Guernica* ? ',
+    'À qui doit-on la découverte de la planète Saturne en 1610 ?',
+    'Quel pays a inventé le système décimal ?',
+];
+$options = [
+    ["JAVA", "PHP", "Python", "C#"],
+    ["5", "6", "7", "8"],
+    ["Vénus", "Terre", "Mars", "Mercure"],
+    ["Atlantique", "Indien", "Arctique", "Pacifique"],
+    ["Égypte", "Jordanie", "Turquie", "Iran"],
+    ["Salvador Dalí", "Pablo Picasso", "Joan Miró", "Diego Velázquez"],
+    ["Galilée", "Copernic", "Aristote ", "Kepler"],
+    ["Grèce", "Chine", "Inde", "Arabie Saoudite"]
 
-        'reponse' => 'Mercure',
-    ],
-    [
-        'question' => 'Quel est le plus grand océan du monde ?',
-        'option1' => 'Océan Atlantique',
-        'option2' => 'Océan Indien',
-        'option3' => 'Océan Arctique',
-        'option4' => 'Océan Pacifique',
+];
 
-        'reponse' => 'Océan Pacifique',
-    ],
+$reponses = [
+    "PHP",
+    "7",
+    "Mercure",
+    "Pacifique",
+    "Jordanie",
+    "Pablo Picasso",
+    "Galilée",
+    "Inde"
+];
 
-     [
-        'question' => 'Dans quel pays trouve-t-on la ville antique de Pétra, taillée dans la roche ?',
-        'option1' => 'Égypte',
-        'option2' => 'Jordanie',
-        'option3' => 'Turquie',
-        'option4' => 'Iran',
-
-        'reponse' => 'Jordanie',
-     ],
-     [
-        'question' => 'Quel est le nom du peintre du tableau *Guernica* ? ',
-        'option1' => 'Salvador Dalí',
-        'option2' => 'Pablo Picasso',
-        'option3' => 'Joan Miró',
-        'option4' => 'Diego Velázquez',
-
-        'reponse' => 'Pablo Picasso',
-     ],
-     [
-        'question' => 'À qui doit-on la découverte de la planète Saturne en 1610 ?',
-        'option1' => 'Galilée',
-        'option2' => 'Copernic',
-        'option3' => 'Aristote ',
-        'option4' => 'Kepler',
-
-        'reponse' => 'Galilée',
-     ],
-     [
-        'question' => 'Quel pays a inventé le système décimal ?',
-        'option1' => 'Grèce',
-        'option2' => 'Chine',
-        'option3' => 'Inde',
-        'option4' => 'Arabie Saoudite',
-
-        'reponse' => 'Inde',
-     ]
-
+$explications = [
+    "WordPress est principalement développé en PHP.",
+    "Il y a 7 continents sur Terre.",
+    "Mercure est la planète la plus proche du Soleil.",
+    "L'océan Pacifique est le plus grand du monde.",
+    "Pétra se situe en Jordanie.",
+    "Guernica est une œuvre célèbre de Pablo Picasso.",
+    "C’est Galilée qui a observé Saturne en 1610.",
+    "Le système décimal a été inventé en Inde."
 ];

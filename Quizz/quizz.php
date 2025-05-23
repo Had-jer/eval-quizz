@@ -1,66 +1,76 @@
 <?php
+// COMMENCER UNE SESSION
+session_start();
+require_once "quizz-questions.php";
 
-// $quizz_id = 0;
-// $totalCorrect;
-// $correct = 0;
-// function VerifyResponse(){
-//     $response = false ;
+function QuizzAffichage($questions)
+{
+    global $options, $reponses, $explications;
 
-//    if($response === true ){
-//     echo "Bravo, YOU'RE SMART";
-// } else {
-//     echo "SHIT, U LOOSER!";
-// } 
-// }
+    // CALCULER LE SCORE AVEC CHAQUE QUESTION
+    $totalQuestions = count($questions);
 
+    //D'ABORD ON VÉRIFIE SI L'INDEX ET LE SCORE EXISTE 
+    if (!isset($_SESSION['index'])) {
+        $_SESSION['index'] = 0;
+        $_SESSION['score'] = 0;
+    }
 
-// fonction qui conteint la boucle qui affiche les questions de quizz
-function QuizzAffichage($questions){
+    // RESET THE QUIZZ/ détruire une session et commencer une autre
+    if (isset($_POST['reset'])) {
+        session_destroy();
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
+    }
 
+    $index = $_SESSION['index'];
 
+    // AFFICHER LE SCORE À LA FIN DU QUIZZ
+    if ($index >= $totalQuestions) {
+        echo "<h2>Quiz terminé !</h2>";
+        echo "<p>Votre score : " . $_SESSION['score'] . " / $totalQuestions</p>";
 
-echo "<form method='POST'>";
-    // QuizzAffichage($questions);
-    echo "<input type='submit' value='Soumettre'>";
+        echo "<form method='POST'>
+                <button type='submit' name='reset'>Recommencer</button>
+              </form>";
+        return;
+    }
+
+    // LES RÉPONSES ET LES EXPLICATIONS
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
+        $choix = $_POST['reponse'];
+        $bonneReponse = $reponses[$index];
+        // AFFICHER LE CHOIX QU'ON A CHOISI
+        echo "<p><strong>Your response :</strong> $choix</p>";
+        //AFFICHAGE DE LA BONNE RÉPONSE + EXPLICATION 
+        echo "<p><strong>THE RIGHT CHOICE  :</strong> $bonneReponse</p>";
+        echo "<p><em>WHY YOU'RE WRONG? :</em> " . $explications[$index] . "</p>";
+
+        if ($choix === $bonneReponse) {
+            $_SESSION['score']++;
+            echo "<p style='color:green'><strong>GOOD JOB BUDDY! 😌</strong></p>";
+        } else {
+            echo "<p style='color:red'><strong>IT'S OK TO NOT BE OK 🙂‍↔️</strong></p>";
+        }
+        // LE BOUTON NEXT QUESTION
+        $_SESSION['index']++;
+        echo "<form method='POST'><button type='submit'>NEXT QESTION</button></form>";
+        return;
+    }
+
+    // AFFICHER LA QUESTION SUIVANTE 
+    echo "<form method='POST'>";
+    echo "<h3>Question " . ($index + 1) . " :</h3>";
+    echo "<p>" . $questions[$index] . "</p>";
+
+    foreach ($options[$index] as $opt) {
+        // ÇA CONVERTIT S CARACTÈRES SPÉCIAUX EN ENTITÉS HTML
+        $safe = htmlspecialchars($opt);
+        echo "<label><input type='radio' name='reponse' value='$safe' required> $safe</label><br>";
+    }
+
+    echo "<br><input type='submit' value='Valider'>";
     echo "</form>";
-// foreach ($questions as $key => $value ) {
-    // foreach ($questions as $index => $q) {
-    //     echo "<p><strong>Question " . ($key + 1) . ":</strong> " . $value['question'] . "</p>";
-    //     foreach ($questions['options'] as $option) {
-    //         echo "<input type='radio' name='q$key' value='$option'> $option<br>";
-    //     }
-    // }
-    // for ($i=0; $i < $questions; $i++) { 
-    //     echo "<p><strong>Question " . ($questions + 1) . ":</strong> " . $questions['question'] . "</p>";
-    // }
-for ($i=0; $i < $questions ; $i++) { 
-    echo "<p>". $questions["quesion"]. "</p>";
-
-    
 }
-}
-// }
-QuizzAffichage($questions = [
-    [
-        'question' => 'Saturne est la seule planète du système solaire à posséder des anneaux!',
-        'opetions' => 'Vraie / ou Faux',
-        'reponse' => 'FAUX',
-        'explication' => 'uranus aussi possède des anneaux, c juste que les anneaux de Saturn sont très visibles et colorés'
-    ],
-    [
-        'question' => 'La planète Saturne est la plus grande planète du système solaire!',
-        'options' => 'Vrai / Faux',
-        'reponse' => 'FAUX',
-        'explication' => 'La plus grande planète du Système solaire est Jupiter '
-    ],
-    [
-        'question' => 'La planète Saturne est une planète tellurique!',
-        'options' => 'Vrai / ou Faux',
-        'reponse' => 'FAUX',
-        'explication' => ' C’est une géante gazeuse est composée essentiellement d’hydrogène et d’hélium. Une planète tellurique possède une surface solide constituée principalement de roches et de métaux comme la Terre d’où le nom.'
-    ]
-    ]);
-// le bouton pour valider la réponse
-// le bouton pour accéder au score
-// l'affichage des explications après la réponse
 
+QuizzAffichage($questions);
